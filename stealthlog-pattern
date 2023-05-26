@@ -19,19 +19,19 @@ DOMAINUSER %{WORD:domain}\\%{USER:user}
 9016v2 User (?<User>.+) on machine (?<hostname>.+) \[%{SEPIP:IPAddress}\] \[OS: (?<osName>[^]]+)?\] \[Software level: (?<eplevel>.+)?\] using Session ID:\s*(?<sessionid>\d+)(, license type:\s*(?<LicenseType>\w+))? was successfully authorized in group\(s\): (?<Group>.+) and role\(s\): (?<Role>.+)\. Receiving the following COIs: (?<COI>[^.]+)\. Authorization time: (%{INT:AuthTime:int}) milliseconds. Endpoint timestamp: (?<EndPointTime>.+?(\w*))\.( The endpoint reported the authorization that started for reason (?<EPAuthEPReason>.+) required (%{INT:EPTotalTime:int}) milliseconds and (%{INT:EPAuthAttempts:int}) attempts\.)?\s*\[ AuthGroup: (?<AuthGroup>.+) \| IP: (?<AuthUrl>.+) \| Thread: .+ \]
 
 9046v1 %{GREEDYDATA:v1_message}
-9046v2 The user\s*%{DOMAINUSER}\s*on\s*machine\s*%{HOSTNAME:hostname}\s*\[%{IP:ipAddress}\s*\]\s*\[OS:\s*(?<osName>[^]]+)?\]\s*\[Software level: (?<eplevel>.+)?\] using Session ID:\s*(?<sessionid>\d+)\s*has\s*ended\s*the\s*session.\s*\[\s*AuthGroup:\s*%{IPORHOST:fqdn}\s*\|\s*IP:\s*%{URI:authURL}%{GREEDYDATA:9046_message}
+9046v2 The user\s*%{DOMAINUSER}\s*on\s*machine\s*%{HOSTNAME:hostname}\s*\[%{IP:ipAddress}\s*\]\s*\[OS:\s*(?<osName>[^]]+)?\]\s*\[Software level: (?<eplevel>.+)?\] using Session ID:\s*(?<sessionid>\d+)\s*has\s*ended\s*the\s*session.\s*\[\s*AuthGroup:\s*%{IPORHOST:fqdn}\s*\|\s*IP:\s*%{URI:AuthUrl}%{GREEDYDATA:9046_message}
 
 9053v1 %{GREEDYDATA:v1_message}
-9053v2 The\s*session\s*has\s*timed\s*out\s*for\s*%{DOMAINUSER}\s*on\s*machine\s*%{IPORHOST:host}\s*\[%{IP:hostIP}\]\s*\[OS:\s*%{DATA:oslevel}\]%{DATA}:\s*%{IPV4:eplevel}%{DATA}:\s*%{INT:sessionID}%{DATA}:\s*%{DATA:reason},%{DATA}:%{DATA:closestatus}\[%{DATA}:%{DATA:authgroup}\|%{DATA}:\s*%{URI:authurl}%{GREEDYDATA}
+9053v2 The\s*session\s*has\s*timed\s*out\s*for\s*%{DOMAINUSER}\s*on\s*machine\s*%{IPORHOST:hostname}\s*\[%{IP:IPAddress}\]\s*\[OS:\s*%{DATA:oslevel}\]%{DATA}:\s*%{IPV4:eplevel}%{DATA}:\s*%{INT:sessionid}%{DATA}:\s*%{DATA:reason},%{DATA}:%{DATA:closestatus}\[%{DATA}:%{DATA:AuthGroup}\|%{DATA}:\s*%{URI:authurl}%{GREEDYDATA}
 
 9093v1 %{GREEDYDATA:v1_msg}
-9093v2 An\s*authorization\s*request\s*was\s*received\s*for\s*%{DOMAINUSER}\s*on\s*machine\s*%{HOSTNAME:host}\s*\[%{IP:hostIP}%{DATA}:\s*%{DATA:osName}\]\s*%{DATA}:\s*%{IPV4:eplevel}\s*%{DATA}:\s*%{INT:sessionID}.\s*%{DATA}AuthGroup:\s*%{DATA:authgroup}\s*\|\s*IP:\s*%{URI:authURL}
+9093v2 An\s*authorization\s*request\s*was\s*received\s*for\s*%{DOMAINUSER}\s*on\s*machine\s*%{HOSTNAME:hostname}\s*\[%{IP:IPAddress}%{DATA}:\s*%{DATA:osName}\]\s*%{DATA}:\s*%{IPV4:eplevel}\s*%{DATA}:\s*%{INT:sessionid}.\s*%{DATA}AuthGroup:\s*%{DATA:AuthGroup}\s*\|\s*IP:\s*%{URI:AuthUrl}
 
 9112v1 User,? (?<User>[^\s,]+),? on( machine)? (?<hostname>[^\s]+)( \[%{SEPIP:IPAddress}\](\s\[OS:\s(?<osName>[^]]+)?\])?( using Session ID:(?<sessionid>.+))?)? has been isolated to role (?<isolatedRole>.+)\. Isolation type: (?<isolatedType>.+)\. \[ AuthGroup: (?<AuthGroup>.+) \| IP: (?<AuthUrl>.+) \| Thread: .+ \]
 9112v2 User (?<User>.+) on machine (?<hostname>.+) \[%{SEPIP:IPAddress}\] \[OS: (?<osName>[^]]+)?\] \[Software level: (?<eplevel>.+)\] using Session ID:(?<sessionid>.+) has been isolated to role (?<isolatedRole>.+)\. Isolation type: (?<isolatedType>.+)\. \[ AuthGroup: (?<AuthGroup>.+) \| IP: (?<AuthUrl>.+) \| Thread: .+ \]
 
 9143v1 %{GREEDYDATA:v1_message}
-9143v2 An\s*authorization\s*request\s*was\s*received\s*for\s*%{DOMAINUSER}\s*on\s*machine\s*%{HOSTNAME:host}\s*\[%{IP:hostIP}%{DATA}:\s*%{DATA:osName}\]\s*%{DATA}:\s*%{IPV4:eplevel}\s*%{DATA}:\s*%{INT:sessionID}%{DATA}:\s*%{DATA}provided:\s*%{DATA:reason}\[%{DATA}:\s*%{DATA:authgroup}\|\s%{DATA}:\s*%{URI:authURL}
+9143v2 An\s*authorization\s*request\s*was\s*received\s*for\s*%{DOMAINUSER}\s*on\s*machine\s*%{HOSTNAME:hostname}\s*\[%{IP:IPAddress}%{DATA}:\s*%{DATA:osName}\]\s*%{DATA}:\s*%{IPV4:eplevel}\s*%{DATA}:\s*%{INT:sessionid}%{DATA}:\s*%{DATA}provided:\s*%{DATA:reason}\[%{DATA}:\s*%{DATA:AuthGroup}\|\s%{DATA}:\s*%{URI:AuthUrl}
 
 StealthEndpoint_300 (?:%{MSG_HEAD})\s*Host:\s*%{HOSTNAME}\s+IPAddr:\s*%{SEPIP:IPAddress}\s*
 StealthEndpoint_301 (?:%{MSG_HEAD})\s*Stealth Tunnel %{SEPIP:localIPAddress} [Oo]pened to %{RSEPIP:remoteIPAddress} using key (?<COI>.+) and ProfileId=(?<ProfileId>[^,]+), Priority=(?<Priority>[^,]+)(, (?<direction>\w+)%{SEPDATA})? \[ AuthGroup: (?<AuthGroup>.+) \| IP: (?<AuthUrl>.+) \| Thread: .+ \]
@@ -46,7 +46,7 @@ StealthEndpoint_305 (?:%{MSG_HEAD})\s*Stealth License Tunnel %{SEPIP:localIPAddr
 USSLPROTOCOL_305 Stealth License Tunnel %{SEPIP:localIPAddress} Ended to %{RSEPIP:remoteIPAddress} (?:for|with) (?<reason>[^\(\,]+)\s*(\((?<remoteReason>[^\)]+)\))?(, using key (?<COI>[^,]+)(, lifetime=(%{NUMBER:Lifetime:int})m)?)?
 StealthEndpoint_306 (?:%{MSG_HEAD})\s*Stealth License Tunnel %{SEPIP:localIPAddress} failed to %{RSEPIP:remoteIPAddress} with (?<reason>[^,]+)(, (?<direction>\w+)%{SEPDATA})? \[ AuthGroup: (?<AuthGroup>.+) \| IP: (?<AuthUrl>.+) \| Thread: .+ \]
 USSLPROTOCOL_306 Stealth License Tunnel %{SEPIP:localIPAddress} failed to %{RSEPIP:remoteIPAddress} with (?<reason>[^,]+)(, (?<direction>\w+)%{SEPDATA})?
-StealthEndpoint_307 \[%{IPORHOST:host}:%{WORD:domain}\\%{USER:user}:%{INT:x1sesID}:%{IPV4:eplevel}]\s*Stealth\s*Alert\s*from\s*Endpoint\s*%{IP:ipAddress}%{GREEDYDATA:x}
+StealthEndpoint_307 \[%{IPORHOST:hostname}:%{WORD:domain}\\%{USER:user}:%{INT:x1sesID}:%{IPV4:eplevel}]\s*Stealth\s*Alert\s*from\s*Endpoint\s*%{IP:ipAddress}%{GREEDYDATA:x}
 
 Stealth_9013 (?:%{9013v2}|%{9013v1})
 Stealth_9014 (?:%{9014v2}|%{9014v1})
