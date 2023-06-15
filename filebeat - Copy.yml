@@ -20,7 +20,7 @@ filebeat.inputs:
 
 # filestream is an input for collecting log messages from files.
 - type: filestream
-  id: "Controle Plane-01"
+
   # Change to true to enable this input configuration.
   enabled: true
 
@@ -59,8 +59,8 @@ setup.template.settings:
 # ------------------------------ Logstash Output -------------------------------
 output.logstash:
   # The Logstash hosts
-  hosts: "${FILEBEAT_IP}:${FILEBEAT_PORT}"    
-  api_key: "${FILEBEAT_API}"
+  hosts: ["10.63.219.104:5099"]    
+  api_key: "bGlXa3NZZ0J4U2x4UG96cl9rekY6UzNrTUdWWlJRMi05dURqQWN6RmVOdw=="
 
 # ================================= Processors =================================
 processors:
@@ -70,10 +70,6 @@ processors:
       when:
         contains:
           message: "127.0.0.1"
-  - drop_event:
-      when:
-        contains:
-          message: "::1"
 
 # ================================== Logging ===================================
 
